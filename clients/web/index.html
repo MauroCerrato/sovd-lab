@@ -1,0 +1,21 @@
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>SOVD-Lab Web Client</title>
+</head>
+<body>
+  <h1>SOVD-Lab Web Client</h1>
+  <button id="entities">Get Entities</button>
+  <pre id="out"></pre>
+  <script>
+    const host = 'http://localhost:8080';
+    document.getElementById('entities').onclick = async () => {
+      const res = await fetch(host + '/api/entities');
+      const txt = await res.text();
+      document.getElementById('out').textContent = txt;
+    };
+  </script>
+</body>
+</html>

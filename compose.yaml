@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: Apache-2.0
+version: '3.9'
+services:
+  mock-sovd:
+    build: ./services/mock-sovd
+    ports:
+      - "8080:8080"
+  gateway:
+    build: ./services/gateway
+    environment:
+      - TARGET_BASE=http://mock-sovd:8080
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mock-sovd

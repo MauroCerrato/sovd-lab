@@ -1,0 +1,10 @@
+### SPDX-License-Identifier: Apache-2.0
+### Sample SOVD-like requests (mock endpoints)
+
+# Quick check (mock)
+GET http://localhost:8080/api/entities HTTP/1.1
+Accept: application/json
+
+### Read faults (mock)
+GET http://localhost:8080/api/entities/vehicle-001/faults HTTP/1.1
+Accept: application/json

@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: Apache-2.0
+openapi: 3.0.3
+info:
+  title: SOVD-Lab Overlay (Non-normative)
+  version: 0.1.0
+paths:
+  /api/entities:
+    get:
+      summary: List entities (mock)
+      responses:
+        '200':
+          description: OK

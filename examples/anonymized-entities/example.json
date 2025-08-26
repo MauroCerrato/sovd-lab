@@ -1,0 +1,6 @@
+{
+  "id": "vehicle-001",
+  "type": "synthetic",
+  "areas": ["powertrain", "infotainment"],
+  "capabilities": ["faults", "ident", "data"]
+}
