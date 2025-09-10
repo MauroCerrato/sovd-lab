@@ -15,13 +15,14 @@ This lab provides small, runnable diagnostics scenarios that align with **Eclips
 The current diagnostics ecosystem using SOVD and OBD-II protocols is as of today realized in three services, 2 servers, 1 gateway and one client.
 
 ## 🧪 Architecture Diagram
+```code
 +------------------+       +------------------+       +------------------+
 |  mock-sovd       | <---> |  gateway         | <---> |  obd2-sovd-sim   |
 +------------------+       +------------------+       +------------------+
         ↑                        ↑                          ↑
         |                        |                          |
     Docker Compose orchestrates all services with shared volumes and network
-
+````
 
 ### 🔧 Services Overview
 
