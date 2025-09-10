@@ -1,15 +1,44 @@
 # SPDX-License-Identifier: Apache-2.0
 version: '3.9'
+
 services:
   mock-sovd:
     build: ./services/mock-sovd
     ports:
       - "8080:8080"
+    networks:
+      - diagnostics-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/entities"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
   gateway:
     build: ./services/gateway
     environment:
       - TARGET_BASE=http://mock-sovd:8080
+      - BRIDGE_BASE=http://obd2-sovd-sim:8083
     ports:
       - "8081:8081"
     depends_on:
       - mock-sovd
+      - obd2-sovd-sim
+    networks:
+      - diagnostics-net
+
+  obd2-sovd-sim:
+    build: ./services/obd2-sovd-sim
+    ports:
+      - "8083:8080"  # internal port is 8080, exposed as 8083
+    networks:
+      - diagnostics-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/vehicle-001/api/vin"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  diagnostics-net:
+    driver: bridge
