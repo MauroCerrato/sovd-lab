@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 FROM python:3.10-slim
 
 # Good defaults for containers
@@ -8,19 +9,19 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# Add curl so compose healthchecks work inside the container
+# Adding curl so compose healthchecks work inside the container
 RUN apt-get update \
  && apt-get install -y --no-install-recommends curl ca-certificates \
  && rm -rf /var/lib/apt/lists/*
 
-# Layer pip install before copying the rest to maximize cache hits
+# Installing dependencies ...
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Now copy the app code
+# Copying the app code ...
 COPY server.py .
 
 EXPOSE 8080
 
-# Ensure server.py binds to 0.0.0.0:8080 (not only localhost) inside the code
+# Binding server.py to 0.0.0.0:8080 (not only localhost) inside the code
 CMD ["python", "server.py"]

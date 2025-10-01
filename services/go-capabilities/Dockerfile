@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 # Build stage
 FROM golang:1.22-alpine AS build
 WORKDIR /src
