@@ -1,0 +1,46 @@
+openapi: 3.1.0
+info:
+  title: SOVD-Lab API go-capabilities
+  version: 0.1.0
+  description: >
+    Minimal spec for go-capabilities service (VIN) and future endpoints.
+servers:
+  - url: http://localhost:8085
+paths:
+  /data/ident/vin:
+    get:
+      summary: Get current VIN (synthetic)
+      operationId: getVin
+      responses:
+        '200':
+          description: VIN returned as obd-sovd-sim
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VinPayload'
+              examples:
+                example:
+                  value: { vin: "VEHICLEOBDTEST01" }
+    put:
+      summary: Update VIN
+      operationId: putVin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VinPayload'
+      responses:
+        '204':
+          description: VIN updated
+        '400':
+          description: Invalid payload
+components:
+  schemas:
+    VinPayload:
+      type: object
+      properties:
+        vin:
+          type: string
+      required: [vin]
+	
