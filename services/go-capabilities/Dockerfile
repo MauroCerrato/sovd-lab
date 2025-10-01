@@ -7,7 +7,8 @@ COPY . .
 RUN CGO_ENABLED=0 go build -o /out/go-capabilities
 
 # Runtime stage
-FROM gcr.io/distroless/base-debian12
+FROM alpine:3.20
+RUN apk add --no-cache curl
 WORKDIR /app
 COPY --from=build /out/go-capabilities /app/go-capabilities
 ENV PORT=8085

@@ -121,6 +121,10 @@ curl http://localhost:8083/vehicle-001/api/vin
 # OBD-II DTCs
 curl http://localhost:8083/vehicle-001/api/dtc
 
+# new Go services
+curl -s http://localhost:8085/healthz
+curl -s http://localhost:8085/data/ident/vin
+
 
 🧪 How to Test with error scenarios
 # Simulate unreachable SOVD API

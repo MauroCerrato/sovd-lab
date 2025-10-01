@@ -23,7 +23,9 @@ services:
       - "8081:8081"
     depends_on:
       - mock-sovd
+        condition: service_healthy
       - obd2-sovd-sim
+        condition: service_healthy
     networks:
       - diagnostics-net
 
@@ -49,7 +51,7 @@ services:
     ports:
       - "8085:8085"
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:8085/healthz"]
+      test: ["CMD", "curl", "-fsS", "http://localhost:8085/healthz"]
       interval: 10s
       timeout: 3s
       retries: 5
