@@ -16,21 +16,23 @@ The current diagnostics ecosystem using SOVD and OBD-II protocols is as of today
 
 ## 🧪 Architecture Diagram
 ```code
-+------------------+       +------------------+       +------------------+
-|  mock-sovd       | <---> |  gateway         | <---> |  obd2-sovd-sim   |
-+------------------+       +------------------+       +------------------+
-        ↑                        ↑                          ↑
-        |                        |                          |
-    Docker Compose orchestrates all services with shared volumes and network
++------------------+       +------------------+       +------------------+       +------------------+
+|  mock-sovd       | <---> |  gateway         | <---> |  obd2-sovd-sim   | <---> |  go-capabilities |
++------------------+       +------------------+       +------------------+       +------------------+
+        ↑                        ↑                          ↑                          ↑
+        |                        |                          |                          |
+    Docker Compose orchestrates all services with shared volumes and network, across Python and Go services
 ````
 
 ### 🔧 Services Overview
 
-| Service           | Port | Description                                      |
-|-------------------|------|--------------------------------------------------|
-| mock-sovd         | 8080 | SOVD mock server for synthetic vehicle data      |
-| gateway           | 8081 | API gateway routing anonymized partner APIs      |
-| obd2-sovd-sim     | 8083 | Simulated OBD-II server with SOVD-like endpoints |
+| Service           | Port | Description                                        |
+|-------------------|------|----------------------------------------------------|
+| mock-sovd         | 8080 | SOVD mock server for synthetic vehicle data        |
+| gateway           | 8081 | API gateway routing anonymized partner APIs        |
+| obd2-sovd-sim     | 8083 | Simulated OBD-II server with SOVD-like endpoints   |
+| go-capabilities   | 8085 | Overall vehicles healthcheck and YML capabilities  |
+
 
 
 
@@ -40,12 +42,15 @@ The current diagnostics ecosystem using SOVD and OBD-II protocols is as of today
 The `gateway` now includes:
 
 - ✅ Retry logic (2 attempts, 1.5s delay) for transient backend failures
-- ✅ `/health` endpoint for monitoring
+- ✅ `/health` endpoint for monitoring of the gateway
+
+The overall solution now has a new aggregated SOVD capabilities description and aggregated health endpoint, next steps -> add retry/backoff and OpenTelemetry instrumentation
+- ✅ `/healthz` endpoint for monitoring of the overall capabilities
 
 
 ### 🔧 Error Scenarios
 
-| Scenario                        | HTTP Status | Description                          |
+| Scenario                        | HTTP Status | Description                         |
 |--------------------------------|-------------|--------------------------------------|
 | SOVD API unreachable           | 502         | Network or connection error          |
 | SOVD API returns error         | 4xx/5xx     | Propagated from upstream             |
@@ -85,9 +90,11 @@ Response example:
 - `tools/` mapping prototypes and validators
 - `docs/` intros, quickstart, IP safety, standardization links, acronyms
 - `data/` synthetic datasets only
+- `services/` API gateway and mock-sovd server, NEW added go-capabilities
 
 ## KPIs
 - Multi-client coverage (REST, CLI, web)
+- Multi-language solution (Python, Kotlin, Rust, Go)
 - No custom SOVD server/client beyond OpenSOVD
 - Harmonization demos with anonymized content
 - 100% SPDX headers; 0 license CI failures

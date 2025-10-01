@@ -39,6 +39,23 @@ services:
       timeout: 10s
       retries: 3
 
+  go-capabilities:
+    build:
+      context: ./services/go-capabilities
+    image: maurocerrato/go-capabilities:dev
+    container_name: go-capabilities
+    environment:
+      - PORT=8085
+    ports:
+      - "8085:8085"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8085/healthz"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    depends_on: []
+    restart: unless-stopped
+
 networks:
   diagnostics-net:
     driver: bridge
