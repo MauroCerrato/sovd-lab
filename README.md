@@ -2,19 +2,45 @@
 
 **Mission:** Make SOVD practical, open, and reusable—without leaking IP.
 
-This lab provides small, runnable diagnostics scenarios that align with **Eclipse OpenSOVD (Apache-2.0)** and the emerging **ISO 17978** standard. Code is Apache‑2.0; docs are CC BY 4.0; synthetic data is CC0.
+This lab provides small, runnable diagnostics scenarios that align with:
+-  Eclipse **OpenSOVD** (Apache-2.0)
+- Emerging **ISO 17978** standard 
 
-## Quick Start
-- Open `clients/rest-collections/sample.http` in VS Code (REST Client extension) and send the requests.
-- Or run the CLI: `python clients/cli/sovd_cli.py --host http://localhost:8080`.
-- Or open `clients/web/index.html` and invoke sample endpoints.
-- or try the Multi-Node simulation
+All content is **IP-safe**:
+- Code: Apache-2.0
+- Docs: CC BY 4.0
+- Synthetic data: CC0
 
-## 🐳 Multi-Node Diagnostics Simulation with Docker Compose
+---
 
-The current diagnostics ecosystem using SOVD and OBD-II protocols is as of today realized in three services, 2 servers, 1 gateway and one client.
+## 🚀 Quick Start
+
+### Option 1: REST Collections
+Open `clients/rest-collections/sample.http` in VS Code (REST Client extension) and send requests.
+
+### Option 2: CLI
+```bash
+python clients/cli/sovd_cli.py --host http://localhost:8080
+```
+
+### Option 3: Web Client
+Open `clients/web/index.html` and invoke sample endpoints.
+
+
+## Option4: 🐳 Multi-Node Diagnostics Simulation with Docker Compose
+
+Run the full stack with Docker Compose:
+```bash
+git clone https://github.com/MauroCerrato/sovd-lab.git
+cd sovd-lab
+docker compose up --build
+```
+
+---
 
 ## 🧪 Architecture Diagram
+The current diagnostics ecosystem using SOVD and OBD-II protocols is as of today realized in three services, 2 servers, 1 gateway and one client.
+
 ```code
 +------------------+       +------------------+       +------------------+       +------------------+
 |  mock-sovd       | <---> |  gateway         | <---> |  obd2-sovd-sim   | <---> |  go-capabilities |
@@ -22,7 +48,9 @@ The current diagnostics ecosystem using SOVD and OBD-II protocols is as of today
         ↑                        ↑                          ↑                          ↑
         |                        |                          |                          |
     Docker Compose orchestrates all services with shared volumes and network, across Python and Go services
-````
+```
+
+---
 
 ### 🔧 Services Overview
 
@@ -34,19 +62,28 @@ The current diagnostics ecosystem using SOVD and OBD-II protocols is as of today
 | go-capabilities   | 8085 | Overall vehicles healthcheck and YML capabilities  |
 
 
-
-
-
-## 🔁 Retry Logic and Health Check
-
-The `gateway` now includes:
+### 🔁 Features
 
 - ✅ Retry logic (2 attempts, 1.5s delay) for transient backend failures
-- ✅ `/health` endpoint for monitoring of the gateway
+- ✅ /health and /healthz endpoints for monitoring
+- ✅ Aggregated SOVD capabilities description
+- ✅ Error handling for unreachable or failing upstream services
 
-The overall solution now has a new aggregated SOVD capabilities description and aggregated health endpoint, next steps -> add retry/backoff and OpenTelemetry instrumentation
-- ✅ `/healthz` endpoint for monitoring of the overall capabilities
+### 📡 Example Requests
+```bash
+# SOVD entity list
+curl http://localhost:8081/partner/quick-check
 
+# OBD-II VIN
+curl http://localhost:8083/vehicle-001/api/vin
+
+# OBD-II DTCs
+curl http://localhost:8083/vehicle-001/api/dtc
+
+# Go service health
+curl -s http://localhost:8085/healthz
+curl -s http://localhost:8085/data/ident/vin
+```
 
 ### 🔧 Error Scenarios
 
@@ -56,7 +93,13 @@ The overall solution now has a new aggregated SOVD capabilities description and 
 | SOVD API returns error         | 4xx/5xx     | Propagated from upstream             |
 | Unexpected internal exception  | 500         | Caught and logged                    |
 
-### 📡 Example Error Response, in case the mock-sovd is still not available
+How to simulate unreachable SOVD API:
+```bash
+docker stop sovd-lab_mock-sovd_1
+curl http://localhost:8081/partner/quick-check
+```
+
+### 📡 Example expected error Response, in case the mock-sovd is still not available
 
 ```json
 {
@@ -65,13 +108,16 @@ The overall solution now has a new aggregated SOVD capabilities description and 
 ```
 
 To recover, restart the backend container:
-
+```bash
 docker restart sovd-lab_mock-sovd_1
+```
 
 📡 Gateway Health Check
 
+```bash
 request:
 curl http://localhost:8081/health
+```
 
 Response example:
 ```json
@@ -82,8 +128,9 @@ Response example:
 }
 ```
 
+---
 
-## Folder structure
+## 📂 Folder structure
 - `clients/` REST collections, CLI, and tiny web client
 - `examples/` anonymized entities and workflows, includes SOVD to OBD2 server and client
 - `specs/` OpenAPI overlays and JSON Schemas (non-normative)
@@ -92,7 +139,9 @@ Response example:
 - `data/` synthetic datasets only
 - `services/` API gateway and mock-sovd server, NEW added go-capabilities
 
-## KPIs
+---
+
+## ✅ KPIs
 - Multi-client coverage (REST, CLI, web)
 - Multi-language solution (Python, Kotlin, Rust, Go)
 - No custom SOVD server/client beyond OpenSOVD
@@ -100,39 +149,12 @@ Response example:
 - 100% SPDX headers; 0 license CI failures
 - Time-to-first-response < 48h; ≥5 good-first-issues open
 
-## Licenses
-- Code: Apache-2.0
-- Docs: CC BY 4.0
-- Data: CC0
+---
 
-## 🚀 How to Run with Docker Compose
-```bash
-git clone https://github.com/MauroCerrato/sovd-lab.git
-cd sovd-lab
-docker compose up --build
+### 🔮 Next Goals
 
-### 📡 Example Requests
-# SOVD entity list
-curl http://localhost:8081/partner/quick-check
+- Add retry/backoff improvements
+- OpenTelemetry instrumentation
+- Monitoring-first demo (time-series backend)
+- More error scenarios
 
-# OBD-II VIN
-curl http://localhost:8083/vehicle-001/api/vin
-
-# OBD-II DTCs
-curl http://localhost:8083/vehicle-001/api/dtc
-
-# new Go services
-curl -s http://localhost:8085/healthz
-curl -s http://localhost:8085/data/ident/vin
-
-
-🧪 How to Test with error scenarios
-# Simulate unreachable SOVD API
-docker stop sovd-lab_mock-sovd_1
-
-# Call the gateway
-curl http://localhost:8081/partner/quick-check
-
-# the expected response is an (well handled) Gateway error indication
-
-```
