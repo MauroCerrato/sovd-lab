@@ -1,0 +1,45 @@
+name: Validate HAAD compliance JSON
+
+on:
+push:
+paths:
+- "docs/haad/compliance-mapping//*.json"
+- ".github/workflows/validate-compliance.yml"
+pull_request:
+paths:
+- "docs/haad/compliance-mapping//*.json"
+- ".github/workflows/validate-compliance.yml"
+
+jobs:
+validate:
+runs-on: ubuntu-latest
+steps:
+- name: Checkout
+uses: actions/checkout@v4
+
+  - name: Setup Node
+    uses: actions/setup-node@v4
+    with:
+      node-version: "20"
+
+  - name: Install ajv-cli
+    run: npm install -g ajv-cli@5 ajv-formats
+
+  - name: Validate evidence against schemas
+    run: |
+      set -euo pipefail
+      echo "Validating JSON schemas and evidence..."
+      for data in docs/haad/compliance-mapping/evidence/*.json; do
+        case "$data" in
+          *toc* ) schema="docs/haad/compliance-mapping/event-schemas/controlTransitionRequest.schema.json" ;;
+          *mrm* ) schema="docs/haad/compliance-mapping/event-schemas/minimumRiskManeuver.schema.json" ;;
+          * ) echo "Skipping unrecognized evidence file: $data"; continue ;;
+        esac
+        echo " - $data -> $schema"
+        ajv validate -s "$schema" -d "$data" --spec=draft2020
+      done
+
+  - name: Check JSON formatting
+    run: |
+      sudo apt-get update && sudo apt-get install -y jq
+      jq -e . docs/haad/compliance-mapping/evidence/*.json >/dev/null

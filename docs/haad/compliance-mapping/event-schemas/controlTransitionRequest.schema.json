@@ -1,0 +1,81 @@
+{
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "https://example.com/schemas/controlTransitionRequest.schema.json",
+"title": "ALKS Control Transition Request (ToC) — Synthetic Evidence Schema",
+"description": "Synthetic, Apache-2.0 friendly schema for ToC events (paraphrased, no proprietary data).",
+"type": "object",
+"additionalProperties": false,
+"properties": {
+"event_id": { "type": "string", "minLength": 6 },
+"event_type": { "const": "controlTransitionRequest" },
+"timestamp_utc": { "type": "string", "format": "date-time" },
+"vehicle_id": { "type": "string", "pattern": "^SYNTH-[A-Z0-9-]{3,}$" },
+"sw_version": { "type": "string", "minLength": 1 },
+"odometer_km": { "type": "number", "minimum": 0 },
+"session_id": { "type": "string", "minLength": 6 },
+"request_reason": {
+"type": "string",
+"enum": ["ODD_exit", "System_limit", "Driver_request", "Fallback"]
+},
+"request_channel": {
+"type": "string",
+"enum": ["HMI_visual", "HMI_auditory", "HMI_haptic"]
+},
+"time_to_handover_s": { "type": "number", "minimum": 0 },
+"outcome": {
+"type": "string",
+"enum": ["accepted", "ignored", "escalated_to_MRM"]
+},
+"regulation_refs": {
+"type": "array",
+"items": { "type": "string", "minLength": 3 },
+"minItems": 1,
+"uniqueItems": true
+},
+"dssad": {
+"type": "object",
+"additionalProperties": false,
+"properties": {
+"record_type": { "type": "string", "const": "ToC" },
+"record_version": { "type": "string" }
+},
+"required": ["record_type"]
+},
+"sms": {
+"type": "object",
+"additionalProperties": false,
+"properties": {
+"category": { "type": "string", "const": "Operational" },
+"process_ref": { "type": "string" }
+},
+"required": ["category"]
+},
+"provenance": {
+"type": "object",
+"additionalProperties": false,
+"properties": {
+"generator_service": { "type": "string" },
+"run_env": { "type": "string" },
+"commit_sha": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" }
+},
+"required": ["generator_service", "run_env", "commit_sha"]
+}
+},
+"required": [
+"event_id",
+"event_type",
+"timestamp_utc",
+"vehicle_id",
+"sw_version",
+"odometer_km",
+"session_id",
+"request_reason",
+"request_channel",
+"time_to_handover_s",
+"outcome",
+"regulation_refs",
+"dssad",
+"sms",
+"provenance"
+]
+}

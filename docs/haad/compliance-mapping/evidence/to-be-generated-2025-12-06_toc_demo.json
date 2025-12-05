@@ -1,0 +1,21 @@
+{
+"event_id": "evt-20251206-0001",
+"event_type": "controlTransitionRequest",
+"timestamp_utc": "2025-12-06T09:00:00Z",
+"vehicle_id": "SYNTH-ALKS-001",
+"sw_version": "v0.1.0-demo",
+"odometer_km": 10234.5,
+"session_id": "sess-20251206-0001",
+"request_reason": "ODD_exit",
+"request_channel": "HMI_visual",
+"time_to_handover_s": 7.5,
+"outcome": "escalated_to_MRM",
+"regulation_refs": ["UN-R157", "EU-TA-ALKS"],
+"dssad": { "record_type": "ToC", "record_version": "0.1" },
+"sms": { "category": "Operational", "process_ref": "ops/toc-escalation" },
+"provenance": {
+"generator_service": "kotlin-events",
+"run_env": "PlayWithDocker",
+"commit_sha": "deadbeefcafebabe1234abcd"
+}
+}

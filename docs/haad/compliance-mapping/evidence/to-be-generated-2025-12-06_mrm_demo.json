@@ -1,0 +1,21 @@
+{
+"event_id": "evt-20251206-0002",
+"event_type": "minimumRiskManeuver",
+"timestamp_utc": "2025-12-06T09:00:08Z",
+"vehicle_id": "SYNTH-ALKS-001",
+"sw_version": "v0.1.0-demo",
+"odometer_km": 10234.6,
+"session_id": "sess-20251206-0001",
+"trigger": "missed_ToC",
+"mrm_mode": "lane_keep_slow",
+"hmi_signal_active": true,
+"outcome": "safe_stop",
+"regulation_refs": ["UN-R157", "EU-TA-ALKS"],
+"dssad": { "record_type": "MRM", "record_version": "0.1" },
+"sms": { "category": "Safety", "process_ref": "safety/mrm" },
+"provenance": {
+"generator_service": "kotlin-events",
+"run_env": "PlayWithDocker",
+"commit_sha": "deadbeefcafebabe1234abcd"
+}
+}

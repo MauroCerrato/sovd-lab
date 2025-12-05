@@ -1,0 +1,81 @@
+{
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "https://example.com/schemas/minimumRiskManeuver.schema.json",
+"title": "ALKS Minimum Risk Maneuver (MRM) — Synthetic Evidence Schema",
+"description": "Synthetic, Apache-2.0 friendly schema for MRM events (paraphrased, no proprietary data).",
+"type": "object",
+"additionalProperties": false,
+"properties": {
+"event_id": { "type": "string", "minLength": 6 },
+"event_type": { "const": "minimumRiskManeuver" },
+"timestamp_utc": { "type": "string", "format": "date-time" },
+"vehicle_id": { "type": "string", "pattern": "^SYNTH-[A-Z0-9-]{3,}$" },
+"sw_version": { "type": "string", "minLength": 1 },
+"odometer_km": { "type": "number", "minimum": 0 },
+"session_id": { "type": "string", "minLength": 6 },
+"trigger": {
+"type": "string",
+"enum": ["missed_ToC", "fault_detected", "ODD_exit", "manual_override", "fallback_logic"]
+},
+"mrm_mode": {
+"type": "string",
+"enum": ["shoulder_stop", "lane_keep_slow", "hazard_lights_stop", "ramp_exit"]
+},
+"hmi_signal_active": { "type": "boolean" },
+"outcome": {
+"type": "string",
+"enum": ["safe_stop", "aborted", "handover_restored"]
+},
+"regulation_refs": {
+"type": "array",
+"items": { "type": "string", "minLength": 3 },
+"minItems": 1,
+"uniqueItems": true
+},
+"dssad": {
+"type": "object",
+"additionalProperties": false,
+"properties": {
+"record_type": { "type": "string", "const": "MRM" },
+"record_version": { "type": "string" }
+},
+"required": ["record_type"]
+},
+"sms": {
+"type": "object",
+"additionalProperties": false,
+"properties": {
+"category": { "type": "string", "const": "Safety" },
+"process_ref": { "type": "string" }
+},
+"required": ["category"]
+},
+"provenance": {
+"type": "object",
+"additionalProperties": false,
+"properties": {
+"generator_service": { "type": "string" },
+"run_env": { "type": "string" },
+"commit_sha": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" }
+},
+"required": ["generator_service", "run_env", "commit_sha"]
+}
+},
+"required": [
+"event_id",
+"event_type",
+"timestamp_utc",
+"vehicle_id",
+"sw_version",
+"odometer_km",
+"session_id",
+"trigger",
+"mrm_mode",
+"hmi_signal_active",
+"outcome",
+"regulation_refs",
+"dssad",
+"sms",
+"provenance"
+]
+}
