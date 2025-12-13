@@ -13,6 +13,27 @@ All content is **IP-safe**:
 
 ---
 
+## 🚦 The VKO / HAAD Expansion (New!)
+*Where Regulation meets Implementation.*
+
+As of Dec 2025, `sovd-lab` includes a dedicated layer for **Vehicle Knowledge Officer (VKO)** workflows, focusing on **Highly Automated Autonomous Driving (HAAD)** compliance (UN R157, R155, R156).
+
+I have decidedd on an **Additive Structure**: existing diagnostic services remain untouched, while new compliance artifacts map simulated events to regulatory obligations.
+
+### 📂 Directory Structure for Compliance
+* **`docs/haad/`**: The knowledge base with documentation.
+    * `action-packs/`: Regional guides (EU/CN/US) mapping Law to Code (e.g., *ALKS Essentials*).
+    * `checklist/`: a draft description of a DSSAD Minimal Record Set (ALKS-focused, synthetic).
+	* `compliance-mapping/`: JSON Schemas defining "Legal Events" (e.g., `controlTransition.schema.json`).
+    * `compliance-mapping/event-schemas/`: includes draft schemas of HAAD relevant events (e.g. MRM, control transition request).
+	* `compliance-mapping/evidence/`: will include synthetic trace logs proving compliance for simulated audits.
+* **`services/kotlin-events/`**: A SOTIF-aware sentinel monitoring strictly for safety violations (Actuation Mismatches, illogical states).
+
+---
+
+
+---
+
 ## 🚀 Quick Start
 
 ### Option 1: REST Collections
