@@ -16,11 +16,10 @@ services:
       retries: 3
 
   # 2. LEGACY ADAPTER (Python/Simulated)
-  # ATTENZIONE: Percorso corretto da ./services a ./examples
   obd2-sovd-sim:
     build: ./examples/obd2-sovd-sim 
     ports:
-      - "8083:8080"  # Interna 8080, Esterna 8083
+      - "8083:8080"  # Internal 8080, External 8083
     networks:
       - sovd-net
     healthcheck:
@@ -56,7 +55,7 @@ services:
       - PORT=8085
     ports:
       - "8085:8085"
-    networks:       # Aggiunta rete mancante
+    networks:       
       - sovd-net
     healthcheck:
       test: ["CMD", "curl", "-fsS", "http://localhost:8085/healthz"]
@@ -78,7 +77,7 @@ services:
     networks:
       - sovd-net
 
-# Unica rete condivisa per semplificare il Lab
+# Unique simulated network name, simplyfies the sovd-lab orchestration
 networks:
   sovd-net:
     driver: bridge
