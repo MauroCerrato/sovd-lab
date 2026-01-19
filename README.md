@@ -1,4 +1,5 @@
 # SOVD-Lab
+[![CI status](https://img.shields.io/badge/CI-pending-lightgrey.svg)](#)
 
 **Mission:** Make SOVD practical, open, and reusable—without leaking IP.
 
