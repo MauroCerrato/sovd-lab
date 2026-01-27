@@ -1,4 +1,4 @@
-package com.sovdlab.events.domain.models
+package org.sovdlab.events.domain.models
 
 import java.time.Instant
 

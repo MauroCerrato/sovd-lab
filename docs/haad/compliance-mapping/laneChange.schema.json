@@ -1,0 +1,18 @@
+{
+  "$id": "https://example.org/haad/laneChange.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lane Change Event",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string", "format": "uuid" },
+    "mode": { "type": "string", "enum": ["Regular", "Emergency", "MRM"] },
+    "intent": { "type": "string", "enum": ["Overtake", "AvoidObstacle", "AccessCorridor", "LaneClosure"] },
+    "startTs": { "type": "string", "format": "date-time" },
+    "endTs": { "type": "string", "format": "date-time" },
+    "initialLane": { "type": "integer", "minimum": 1 },
+    "targetLane": { "type": "integer", "minimum": 1 },
+    "partialExcursion": { "type": "boolean" },
+    "dssadFlags": { "type": "array", "items": { "type": "string", "enum": ["LaneChange_Initiated", "LaneChange_Completed"] } }
+  },
+  "required": ["eventId", "mode", "startTs", "endTs", "initialLane", "targetLane"]
+}

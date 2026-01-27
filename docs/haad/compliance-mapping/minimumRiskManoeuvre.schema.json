@@ -1,0 +1,17 @@
+{
+  "$id": "https://example.org/haad/minimumRiskManoeuvre.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Minimum Risk Manoeuvre (MRM)",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string", "format": "uuid" },
+    "trigger": { "type": "string", "enum": ["SevereFailure", "NoTORResponse", "NetworkLoss"] },
+    "startTs": { "type": "string", "format": "date-time" },
+    "endTs": { "type": "string", "format": "date-time" },
+    "targetState": { "type": "string", "enum": ["StopInLane", "StopOnShoulder"] },
+    "laneChangeDuringMRM": { "type": "boolean" },
+    "environmentalConstraints": { "type": "array", "items": { "type": "string" } },
+    "dssadFlags": { "type": "array", "items": { "type": "string", "enum": ["MRM_Started", "MRM_Completed"] } }
+  },
+  "required": ["eventId", "trigger", "startTs", "endTs", "targetState"]
+}

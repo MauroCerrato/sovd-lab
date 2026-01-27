@@ -1,0 +1,18 @@
+targets:
+  - competency: "Lane change safety in mixed traffic"
+    kpis: ["min TTC", "post-manoeuvre stability index", "gap acceptance"]
+toolchain:
+  virtual:
+    models: ["sensor", "vehicle dynamics", "traffic agents"]
+    correlation_kpis: ["RMSE trajectory", "classification precision", "TTC delta"]
+  track:
+    setups: ["cut-in robot", "soft targets"]
+    correlation_kpis: ["repeatability score", "instrumented ground-truth"]
+  real_world:
+    data: ["fleet logs", "incident-free counters"]
+    correlation_kpis: ["distribution overlap", "scenario coverage %"]
+acceptance:
+  thresholds:
+    rmse_trajectory_m: 0.75
+    ttc_delta_s: 0.5
+    coverage_percent: 85

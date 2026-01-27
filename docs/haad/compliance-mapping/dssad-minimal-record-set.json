@@ -1,0 +1,11 @@
+{
+  "adsActive": true,
+  "adsFeature": "ALKS-L3",
+  "statusFlags": ["ADS_Active", "TOR_Issued", "Human_Override"],
+  "records": [
+    { "ts": "2025-12-13T08:10:03Z", "flag": "ADS_Active" },
+    { "ts": "2025-12-13T08:12:10Z", "flag": "TOR_Issued", "reason": "ODDExit" },
+    { "ts": "2025-12-13T08:12:12Z", "flag": "Human_Override" }
+  ],
+  "retentionPolicyDays": 90
+}

@@ -1,0 +1,18 @@
+{
+  "$id": "https://example.org/haad/sumUpdateEvent.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Software Update Management System (SUMS) Event",
+  "type": "object",
+  "properties": {
+    "updateId": { "type": "string" },
+    "rxswin": { "type": "string", "description": "Regulation-specific software identification (RXSWIN)" },
+    "packageName": { "type": "string" },
+    "precheckStatus": { "type": "string", "enum": ["OK", "Fail"] },
+    "executionStatus": { "type": "string", "enum": ["Started", "Completed", "Failed"] },
+    "rollbackPerformed": { "type": "boolean" },
+    "ownerNotified": { "type": "boolean" },
+    "impactOnTypeApprovalCharacteristics": { "type": "boolean" },
+    "timestamp": { "type": "string", "format": "date-time" }
+  },
+  "required": ["updateId", "rxswin", "executionStatus", "timestamp"]
+}

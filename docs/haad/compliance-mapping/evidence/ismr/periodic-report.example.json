@@ -1,0 +1,24 @@
+{
+  "reportId": "PR-2025-Q4",
+  "fleetScope": "Pilot-100",
+  "adsFeature": "ALKS-L3",
+  "period": "2025-Q4",
+  "statistics": {
+    "adsActiveHours": 812.4,
+    "torCount": 45,
+    "mrmCount": 2,
+    "emCount": 1,
+    "laneChangeCount": 220,
+    "humanOverrideCount": 30
+  },
+  "keyFindings": [
+    "TORs predominantly due to approaching ODD boundary (fog patches).",
+    "MRM instances associated with temporary sensor obstruction; root cause mitigated."
+  ],
+  "smsKpis": {
+    "hazardClosureLeadTimeDays_median": 8,
+    "updateValidationCycleDays_median": 5,
+    "anomalyDetectionLatencyMinutes_median": 12
+  },
+  "plannedImprovements": ["Increase virtual scenario coverage for low-visibility", "Refine TOR messaging cadence"]
+}

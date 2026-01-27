@@ -1,0 +1,13 @@
+{
+  "reportId": "STR-2025-0001",
+  "vehicleType": "M1",
+  "adsFeature": "ALKS-L3",
+  "occurrenceType": "CriticalOccurrence",
+  "trigger": "SevereFailure",
+  "timestamp": "2025-12-13T08:12:11Z",
+  "locationHint": "A9-Northbound-km214",
+  "briefDescription": "ADS initiated TOR due to ODD exit; driver took over within 2s; no incident.",
+  "dssadRef": "DSSAD-Trace-2025-12-13",
+  "mitigations": ["TOR", "HumanOverride"],
+  "nextActions": ["SoftwareDiagnostics", "SMS-Review"]
+}

@@ -1,0 +1,26 @@
+{
+  "$id": "https://example.org/haad/controlTransition.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Control Transition (TOR)",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string", "format": "uuid" },
+    "vehicleType": { "type": "string", "enum": ["M1"] },
+    "adsFeature": { "type": "string", "description": "ALKS-L3" },
+    "oddSlice": { "type": "string", "description": "e.g., Motorway day, dry, 80-130 km/h" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "torReason": { "type": "string", "enum": ["ODDExit", "SystemDegradation", "SensorObstruction", "FallbackTesting"] },
+    "torDeadlineMs": { "type": "integer", "minimum": 0 },
+    "hmiChannels": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["visual", "auditory", "haptic"] }
+    },
+    "userAck": { "type": "boolean" },
+    "outcome": { "type": "string", "enum": ["HumanTookOver", "ADSPerformedMRM", "ADSContinued"] },
+    "dssadFlags": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["ADS_Active", "TOR_Issued", "Human_Override", "MRM_Started"] }
+    }
+  },
+  "required": ["eventId", "vehicleType", "adsFeature", "timestamp", "torReason", "outcome"]
+}

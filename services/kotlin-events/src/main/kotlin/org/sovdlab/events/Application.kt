@@ -1,6 +1,6 @@
-package com.sovdlab.events
+package org.sovdlab.events
 
-import com.sovdlab.events.domain.models.*
+import org.sovdlab.events.domain.models.*
 import io.ktor.serialization.jackson.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*

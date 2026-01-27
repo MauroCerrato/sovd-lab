@@ -1,4 +1,4 @@
-EU Action Pack: ALKS (UN‑R 157) — Essentials with EU Implementing Focus
+EU Action Pack: ALKS (UN-R 157) — Essentials with EU Implementing Focus
 
 \#License and scope
 
@@ -11,6 +11,30 @@ EU Action Pack: ALKS (UN‑R 157) — Essentials with EU Implementing Focus
 
 
 \#Overview
+
+
+
+# EU ALKS Essentials (UN-R 157) — VKO Guide (IP-safe)
+
+## What the regulation expects (paraphrased)
+- ADS performs entire DDT within ODD; HMI clarity; fallback via TOR/MRM/EM.
+- DSSAD records key flags (ADS active, lane changes, TOR/MRM/EM).
+- Cybersecurity (UN-R 155) and Software Updates/SUMS (UN-R 156) apply over lifecycle.
+
+## What we evidence in sovd-lab (synthetic)
+- JSON Schemas for TOR/MRM/LaneChange + DSSAD minimal set.
+- Kotlin sentinel validates timing, durations, basic consistency.
+- ISMR short-term + periodic report examples.
+
+## Where to plug into VKO/SMS
+- KPIs: hazard closure, update validation, anomaly latency, TOR efficacy.
+- Credibility matrix for virtual↔track↔real-world correlation.
+
+> Sources (UNECE, public):
+> - R157 ALKS overview & annex structure, DSSAD references. [3](https://unece.org/sites/default/files/2023-12/R157e.pdf)  
+> - 01 series: 130 km/h, lane change, DSSAD lane-change logging. [7](https://unece.org/sustainable-development/press/un-regulation-extends-automated-driving-130-kmh-certain-conditions)[8](https://unece.org/sites/default/files/2025-06/R157r1e.pdf)  
+> - R155 CSMS, audit-based. [5](https://unece.org/transport/documents/2021/03/standards/un-regulation-no-155-cyber-security-and-cyber-security)  
+> - R156 SUMS, RXSWIN, audit-based. [10](https://eur-lex.europa.eu/eli/reg/2021/388/oj/eng)
 
 
 
@@ -73,7 +97,7 @@ This matrix reflects my current understanding of each requirement context
 
 
 
-Requirement	Homologation	Type Approval	SMS	DSSAD	In‑Service	Evidence intent	Verification notes
+Requirement	Homologation	Type Approval	SMS	DSSAD	In-Service	Evidence intent	Verification notes
 
 ODD declaration	Context	Evidence of declared ODD	Governance	ODD state flag	Operational checks	ODD doc + versioning	Confirm current EU implementing checkpoints for ODD documentation.
 
@@ -107,7 +131,7 @@ Records/logging	N/A	Evidence sufficiency	Retention rules	Record types	Reporting 
 * Master table updates (ALKS rows) — Owner: VKO.
 * Evidence JSON schemas and examples (ToC, MRM) — Owner: sovd-lab Contributors.
 * EU compliance mapping table in Action Pack — Owner: VKO; review in HAAD meetings sync.
-* Open questions list for K‑VKO/Legal — Owner: VKO.
+* Open questions list for K-VKO/Legal — Owner: VKO.
 
 
 
@@ -145,7 +169,7 @@ What ALKS is (L3), where it applies, and EU focus on implementing provisions (sc
 
 \# Compliance mapping (matrix)
 
-\## For each requirement, note Homologation/Type Approval/SMS/DSSAD/In‑Service touchpoints and evidence intent (no quotes).
+\## For each requirement, note Homologation/Type Approval/SMS/DSSAD/In-Service touchpoints and evidence intent (no quotes).
 
 
 
@@ -161,7 +185,7 @@ What ALKS is (L3), where it applies, and EU focus on implementing provisions (sc
 
 \# Deliverables \& owners
 
-\## Master table rows (you); weekly VKO sync readiness (you, K‑VKO).
+\## Master table rows (you); weekly VKO sync readiness (you, K-VKO).
 
 \## Evidence JSON examples (sovd-lab).
 
