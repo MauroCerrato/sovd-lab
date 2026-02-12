@@ -1,0 +1,30 @@
+{
+  "$id": "https://sovd-lab/haad/parkingAbort.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parking Abort Event",
+  "type": "object",
+  "properties": {
+    "abortId": { "type": "string", "format": "uuid" },
+    "trigger": {
+      "type": "string",
+      "enum": [
+        "ObstacleDetected",
+        "DriverIntervention",
+        "SystemDegradation",
+        "GeometryMismatch",
+        "CommunicationLoss",
+        "Unknown"
+      ]
+    },
+    "position": {
+      "type": "object",
+      "properties": {
+        "x_m": { "type": "number" },
+        "y_m": { "type": "number" }
+      }
+    },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "recoveryAdvice": { "type": "string" }
+  },
+  "required": ["abortId", "trigger", "timestamp"]
+}

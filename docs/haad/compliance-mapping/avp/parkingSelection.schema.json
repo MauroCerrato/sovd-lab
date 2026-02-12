@@ -1,0 +1,26 @@
+{
+  "$id": "https://sovd-lab/haad/parkingSelection.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parking Slot Selection",
+  "type": "object",
+  "properties": {
+    "selectionId": { "type": "string", "format": "uuid" },
+    "mode": { "type": "string", "enum": ["parallel", "perpendicular"] },
+    "slotGeometry": {
+      "type": "object",
+      "properties": {
+        "length_m": { "type": "number", "minimum": 3.0 },
+        "width_m": { "type": "number", "minimum": 1.8 },
+        "angle_deg": { "type": "number", "minimum": 0, "maximum": 90 }
+      },
+      "required": ["length_m", "width_m"]
+    },
+    "confidenceScore": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "environmentalAnnotations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "timestamp": { "type": "string", "format": "date-time" }
+  },
+  "required": ["selectionId", "mode", "slotGeometry", "timestamp"]
+}

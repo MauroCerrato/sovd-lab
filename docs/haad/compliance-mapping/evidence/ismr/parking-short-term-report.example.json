@@ -1,0 +1,12 @@
+{
+  "reportId": "STR-PARK-2025-001",
+  "eventType": "ParkingAbort",
+  "timestamp": "2025-12-12T09:45:11Z",
+  "locationHint": "DE_MUC_Parking_Garage_42_R3",
+  "description": "Abort due to obstacle detected 0.8 m ahead during perpendicular parking.",
+  "dssadFlags": ["Start", "ObstacleStop", "Abort"],
+  "nextActions": [
+    "Update sensor-diagnostics entry",
+    "Review obstacle-classification logs"
+  ]
+}

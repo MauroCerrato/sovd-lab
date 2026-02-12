@@ -1,0 +1,28 @@
+{
+  "reportId": "PR-2025-PARK-Q4",
+  "period": "2025-Q4",
+  "fleetScope": "Pilot-PARK-50",
+  "metrics": {
+    "totalParkingAttempts": 812,
+    "completed": 745,
+    "aborted": 67,
+    "abortReasons": {
+      "ObstacleDetected": 32,
+      "DriverIntervention": 19,
+      "GeometryMismatch": 11,
+      "Unknown": 5
+    },
+    "remoteSessions": 124,
+    "remoteAbort": 7,
+    "avgDriverProximity_m": 3.2,
+    "obstacleStops": 41
+  },
+  "keyFindings": [
+    "Most aborts due to dynamic intrusions near retail entrances.",
+    "Improved slot-classification model reduced GeometryMismatch over Q3."
+  ],
+  "plannedImprovements": [
+    "Expand virtual scenario set for angled parking.",
+    "Refine ultrasound confidence threshold."
+  ]
+}

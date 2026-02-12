@@ -1,0 +1,23 @@
+{
+  "$id": "https://sovd-lab/haad/dssadFlags.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Synthetic DSSAD Flags for Parking",
+  "type": "object",
+  "properties": {
+    "flags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Start",
+          "Abort",
+          "ObstacleStop",
+          "Complete",
+          "RemoteStart",
+          "RemoteAbort",
+          "SessionTimeout"
+        ]
+      }
+    }
+  }
+}

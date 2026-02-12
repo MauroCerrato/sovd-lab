@@ -1,0 +1,34 @@
+{
+  "$id": "https://sovd-lab/haad/remoteParkingSession.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Remote Parking Session",
+  "type": "object",
+  "properties": {
+    "sessionId": { "type": "string", "format": "uuid" },
+    "driverProximity_m": { "type": "number", "minimum": 0.0, "maximum": 6.0 },
+    "startTs": { "type": "string", "format": "date-time" },
+    "endTs": { "type": "string", "format": "date-time" },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["Start", "Pause", "Resume", "Abort", "Stop"]
+      }
+    },
+    "obstacleStops": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ts": { "type": "string", "format": "date-time" },
+          "distance_m": { "type": "number" }
+        }
+      }
+    },
+    "completionState": {
+      "type": "string",
+      "enum": ["Completed", "Aborted", "StoppedByDriver"]
+    }
+  },
+  "required": ["sessionId", "driverProximity_m", "startTs", "completionState"]
+}
